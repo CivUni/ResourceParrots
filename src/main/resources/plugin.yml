@@ -1,0 +1,5 @@
+name: ResourceParrots
+version: ${project.version}
+main: com.civuniverse.resourceparrots.ResourceParrots
+authors: [ SwiftFizz ]
+description: Parrots that drop resources from crops !
