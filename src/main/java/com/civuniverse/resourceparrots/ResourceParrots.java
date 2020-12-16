@@ -51,7 +51,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
         String stringStateCocoa = stringState.split(" ")[0];
         String stringStateSplit = stringState.split("\\(")[0];
         if (stringStateSplit.equals("RIPE BEETROOT_BLOCK")||(stringStateSplit.equals("RIPE POTATO")||(stringStateSplit.equals("RIPE CARROT")||(stringStateSplit.equals("RIPE CROPS"))||(stringStateSplit.equals("RIPE NETHER_WARTS"))||(stringStateCocoa.equals("COCOA(10)"))||(stringStateCocoa.equals("COCOA(9)"))||(stringStateCocoa.equals("COCOA(8)"))||(stringStateCocoa.equals("COCOA(11)"))))) {
-            if (this.getConfig().getBoolean("debug") {
+            if (this.getConfig().getBoolean("debug")) {
                 player.sendMessage("[RP Debug] Ripe crop broken.");
             }
         }
@@ -66,6 +66,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
         int random = getRandomInt(99);
         int chance = this.getConfig().getInt("parrotSpawnPercent");
         int delay = this.getConfig().getInt("delay") * 10;
+        String birdName = this.getConfig().getString("birdName");
         if (debug) {
             player.sendMessage("[RP Debug] Random: " + random + ". Chance " + chance);
         }
@@ -74,7 +75,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
         if(event.getBlock().getType().equals(Material.CARROT)&&random <= chance&&this.getConfig().getBoolean("carrots"))
         {
             Entity parrot = world.spawnEntity(loc,EntityType.PARROT);
-            parrot.setCustomName(ChatColor.GOLD + "Carrot Parrot");
+            parrot.setCustomName(ChatColor.GOLD + "Carrot " + birdName);
             parrot.setCustomNameVisible(true);
             Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable()
             {
@@ -87,7 +88,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
         }
         if(event.getBlock().getType().equals(Material.CROPS)&&random <= chance&&this.getConfig().getBoolean("wheat")) {
             Entity parrot = world.spawnEntity(loc,EntityType.PARROT);
-            parrot.setCustomName(ChatColor.DARK_GREEN + "Wheat Parrot");
+            parrot.setCustomName(ChatColor.DARK_GREEN + "Wheat "+birdName);
             parrot.setCustomNameVisible(true);
             if (debug) {
                 event.getPlayer().sendMessage("[RP Debug] Parrot spawn success");
@@ -104,7 +105,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
         //potato
         if(event.getBlock().getType().equals(Material.POTATO)&&random <= chance&&this.getConfig().getBoolean("potato")) {
             Entity parrot = world.spawnEntity(loc,EntityType.PARROT);
-            parrot.setCustomName(ChatColor.YELLOW + "Potato Parrot");
+            parrot.setCustomName(ChatColor.YELLOW + "Potato "+birdName);
             parrot.setCustomNameVisible(true);
             if (debug) {
                 event.getPlayer().sendMessage("[RP Debug] Parrot spawn success");
@@ -121,7 +122,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
         //beetroot
         if(event.getBlock().getType().equals(Material.BEETROOT_BLOCK)&&random <= chance&&this.getConfig().getBoolean("beetroot")) {
             Entity parrot = world.spawnEntity(loc,EntityType.PARROT);
-            parrot.setCustomName(ChatColor.RED + "Beetroot Parrot");
+            parrot.setCustomName(ChatColor.RED + "Beetroot "+birdName);
             parrot.setCustomNameVisible(true);
             if (debug) {
                 event.getPlayer().sendMessage("[RP Debug] Parrot spawn success");
@@ -138,7 +139,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
         // netherwart
         if(event.getBlock().getType().equals(Material.NETHER_WARTS)&&random <= chance&&this.getConfig().getBoolean("netherwart")) {
             Entity parrot = world.spawnEntity(loc,EntityType.PARROT);
-            parrot.setCustomName(ChatColor.DARK_RED + "Nether Wart Parrot");
+            parrot.setCustomName(ChatColor.DARK_RED + "Nether Wart "+birdName);
             parrot.setCustomNameVisible(true);
             if (debug) {
                 event.getPlayer().sendMessage("[RP Debug] Parrot spawn success");
@@ -155,7 +156,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
         //cocoa
         if(event.getBlock().getType().equals(Material.COCOA)&&random <= chance&&this.getConfig().getBoolean("cocoa")) {
             Entity parrot = world.spawnEntity(loc,EntityType.PARROT);
-            parrot.setCustomName(ChatColor.LIGHT_PURPLE + "Cocoa Parrot");
+            parrot.setCustomName(ChatColor.LIGHT_PURPLE + "Cocoa "+birdName);
             parrot.setCustomNameVisible(true);
             if (debug) {
                 event.getPlayer().sendMessage("[RP Debug] Parrot spawn success");
@@ -174,9 +175,10 @@ public final class ResourceParrots extends JavaPlugin implements Listener
     @EventHandler
     public void resourceDrop(EntityDeathEvent event)
     {
+        String birdName = this.getConfig().getString("birdName");
         int amount = this.getConfig().getInt("amountOfCrop");
         //carrots
-        if(event.getEntity().getCustomName().equals(ChatColor.GOLD + "Carrot Parrot"))
+        if(event.getEntity().getCustomName().equals(ChatColor.GOLD + "Carrot " + birdName))
         {
             if (this.getConfig().getBoolean("clearParrotDrops")) {
                 event.getDrops().clear();
@@ -184,7 +186,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
             event.getEntity().getWorld().dropItemNaturally(event.getEntity().getLocation(), new ItemStack(Material.CARROT_ITEM, amount));
         }
         //wheat
-        if(event.getEntity().getCustomName().equals(ChatColor.DARK_GREEN + "Wheat Parrot"))
+        if(event.getEntity().getCustomName().equals(ChatColor.DARK_GREEN + "Wheat "+birdName))
         {
             if (this.getConfig().getBoolean("clearParrotDrops")) {
                 event.getDrops().clear();
@@ -192,7 +194,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
             event.getEntity().getWorld().dropItemNaturally(event.getEntity().getLocation(), new ItemStack(Material.WHEAT, amount));
         }
         // potato
-        if(event.getEntity().getCustomName().equals(ChatColor.YELLOW + "Potato Parrot"))
+        if(event.getEntity().getCustomName().equals(ChatColor.YELLOW + "Potato "+birdName))
         {
             if (this.getConfig().getBoolean("clearParrotDrops")) {
                 event.getDrops().clear();
@@ -200,7 +202,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
             event.getEntity().getWorld().dropItemNaturally(event.getEntity().getLocation(), new ItemStack(Material.POTATO_ITEM, amount));
         }
         // beetroot
-        if(event.getEntity().getCustomName().equals(ChatColor.RED + "Beetroot Parrot"))
+        if(event.getEntity().getCustomName().equals(ChatColor.RED + "Beetroot "+birdName))
         {
             if (this.getConfig().getBoolean("clearParrotDrops")) {
                 event.getDrops().clear();
@@ -208,7 +210,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
             event.getEntity().getWorld().dropItemNaturally(event.getEntity().getLocation(), new ItemStack(Material.BEETROOT, amount));
         }
         //netherwart
-        if(event.getEntity().getCustomName().equals(ChatColor.DARK_RED + "Nether Wart Parrot"))
+        if(event.getEntity().getCustomName().equals(ChatColor.DARK_RED + "Nether Wart "+birdName))
         {
             if (this.getConfig().getBoolean("clearParrotDrops")) {
                 event.getDrops().clear();
@@ -216,7 +218,7 @@ public final class ResourceParrots extends JavaPlugin implements Listener
             event.getEntity().getWorld().dropItemNaturally(event.getEntity().getLocation(), new ItemStack(Material.NETHER_WARTS, amount));
         }
         //cocoa
-        if(event.getEntity().getCustomName().equals(ChatColor.LIGHT_PURPLE + "Cocoa Parrot"))
+        if(event.getEntity().getCustomName().equals(ChatColor.LIGHT_PURPLE + "Cocoa "+birdName))
         {
             if (this.getConfig().getBoolean("clearParrotDrops")) {
                 event.getDrops().clear();

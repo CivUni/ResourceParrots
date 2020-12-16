@@ -22,3 +22,5 @@ parrotSpawnPercent: 2
 clearParrotDrops: true
 # How long a parrot takes to despawn in seconds
 delay: 10
+# Name of birds
+birdName: Parrot
