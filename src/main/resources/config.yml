@@ -3,6 +3,22 @@
 ####
 #### github/dkf-lab
 
+debug: false
+
 #### Crops
+amountOfCrop: 64
+# Crops that spawn parrots
+carrots: true
+wheat: true
+potato: true
+beetroot: true
+netherwart: true
+cocoa: true
 
 #### Spawning
+# Chance of a parrot spawning
+parrotSpawnPercent: 2
+# Referring to default parrot drops.
+clearParrotDrops: true
+# How long a parrot takes to despawn in seconds
+delay: 10
